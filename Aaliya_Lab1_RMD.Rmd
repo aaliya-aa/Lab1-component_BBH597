@@ -1,0 +1,119 @@
+---
+title: "Lab1_RMD"
+author: "Aaliya"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+
+library(summarytools)
+library(psych)
+library(ggplot2)
+#read.csv(Lab1.docx)
+#read.csv(data_R1.csv)
+read.csv("data_R1.csv")
+
+lab1_dat <- read.csv("data_R1.csv")
+View(lab1_dat)
+
+
+# Which folder my data is in
+setwd("C:/Users/Aaliya/Desktop/BBH597")
+# Get the current working directory to verify it's set correctly
+getwd()
+# Read the CSV file
+lab1_dat <- read.csv("data_R1.csv")
+getwd()
+lab1_dat <- read.csv("data_R1.csv")
+names(lab1_dat)
+str(lab1_dat)
+#Number of variables(cols) and observations(rows)
+ncol(lab1_dat)
+nrow(lab1_dat)
+head(lab1_dat , n=6)
+tail(lab1_dat , n=6)
+print(lab1_dat)
+
+freq(lab1_dat[c("age", "height")])
+freq(lab1_dat$age)
+install.packages("summarytools")
+library(summarytools)
+freq(lab1_dat$age)
+freq(lab1_dat$height)
+
+height_freq <- freq(lab1_dat$height)
+freq(lab1_dat$height)
+#To find most frequent height values
+height_freq <- freq(lab1_dat$height)
+freq(lab1_dat$height)
+height_freq <- freq(lab1_dat$height)
+height_freq <- table(lab1_dat$height)
+print(height_freq)
+lab1_dat[, c("height", "weight")]
+lab1_dat$height.grp
+
+
+
+lab1_dat$height.grp <- ifelse(lab1_dat$height < 47, 1, 2)
+print(lab1_dat)
+print(lab1_dat$height.grp)
+#summary(lab1_dat$height)
+#summary(lab1_dat$height.grp)
+
+lab1_dat$height.grp <- factor(lab1_dat$height.grp)
+lab1_dat$height <- factor(lab1_dat$height)
+output<-ctable(lab1_dat$height.grp , lab1_dat$height)
+
+crosstab <- table(lab1_dat$height.grp, lab1_dat$height)
+print(crosstab)
+
+
+# Bar Plot
+
+library(ggplot2)
+ggplot(lab1_dat, aes(x = height.grp)) +
+  geom_bar(fill = "pink", color = "black") +
+  labs(x = "Height Group", y = "Count") +
+  theme_bw()
+
+
+# Histogram of height
+hist(table(lab1_dat$height), 
+     main = "Histogram of Height",
+     xlab = "Height",
+     ylab = "Frequency",
+     col = "green",
+     breaks = 10)
+
+library(ggplot2)
+
+ggplot(lab1_dat, aes(x = as.numeric(as.character(height)))) +
+  geom_histogram(fill = "lightgreen", color = "black", binwidth = 2.5) +
+  labs(x = "Height (inches)", y = "Count") +
+  theme_bw()
+
+#density curve
+ggplot(lab1_dat, aes(x = as.numeric(as.character(height)))) +
+  geom_histogram(aes(y = ..density..), fill = "yellow", color = "black", binwidth = 2.5) +
+  geom_density(color = "blue", size = 1) +
+  labs(x = "Height (inches)", y = "Density") +
+  theme_bw()
+
+
+# Line Plot
+ggplot(lab1_dat, aes(x = seq_along(height), y = as.numeric(as.character(height)))) +
+  geom_line(color = "darkred", size = 1) +
+  labs(x = "Index", y = "Height (inches)") +
+  theme_bw()
+
+
+
+
+
+```
+
